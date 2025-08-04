@@ -6,30 +6,30 @@ import 'models/login_data.dart';
 class LoginWidget extends StatelessWidget {
   /// Callback function called when login is attempted
   final Function(LoginData) onLogin;
-  
+
   /// Widget title
   final String? title;
   final TextStyle? titleStyle;
-  
+
   /// Custom styling
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
   final BorderRadius? borderRadius;
   final BoxShadow? shadow;
-  
+
   /// Form customization
   final InputDecoration? emailDecoration;
   final InputDecoration? passwordDecoration;
   final ButtonStyle? buttonStyle;
   final String? buttonText;
-  
+
   /// Optional footer widget (e.g., "Don't have an account?" link)
   final Widget? footer;
-  
+
   /// Form validation
   final String? Function(String?)? emailValidator;
   final String? Function(String?)? passwordValidator;
-  
+
   /// Password visibility options
   final bool showPasswordToggle;
   final Widget? visibilityIcon;
@@ -54,7 +54,8 @@ class LoginWidget extends StatelessWidget {
     this.showPasswordToggle = true,
     this.visibilityIcon,
     this.visibilityOffIcon,
-  }) : super(key: key);  @override
+  }) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -63,16 +64,15 @@ class LoginWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor ?? theme.cardColor,
         borderRadius: borderRadius ?? BorderRadius.circular(12.0),
-        boxShadow:
-            shadow != null
-                ? [shadow!]
-                : [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
+        boxShadow: shadow != null
+            ? [shadow!]
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -81,8 +81,7 @@ class LoginWidget extends StatelessWidget {
           if (title != null) ...[
             Text(
               title!,
-              style:
-                  titleStyle ??
+              style: titleStyle ??
                   theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

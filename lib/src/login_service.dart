@@ -33,37 +33,39 @@ class LoginResponse {
 /// Service for handling authentication HTTP requests
 class LoginService {
   static LoginService? _instance;
-  
+
   /// Singleton instance
   static LoginService get instance {
     _instance ??= LoginService._internal();
     return _instance!;
   }
-  
+
   LoginService._internal();
-  
+
   /// Perform login with the provided credentials
   Future<LoginResponse> login(LoginData loginData) async {
     final config = LoginConfig.instance;
     final url = config.loginUrl;
-    
+
     if (url == null) {
-      throw Exception('Base URL not configured. Call LoginConfig.instance.setBaseUrl() first.');
+      throw Exception(
+          'Base URL not configured. Call LoginConfig.instance.setBaseUrl() first.');
     }
-    
+
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: config.headers,
-        body: jsonEncode({
-          'email': loginData.email,
-          'password': loginData.password,
-        }),
-      ).timeout(config.timeout);
-      
+      final response = await http
+          .post(
+            Uri.parse(url),
+            headers: config.headers,
+            body: jsonEncode({
+              'email': loginData.email,
+              'password': loginData.password,
+            }),
+          )
+          .timeout(config.timeout);
+
       final responseData = jsonDecode(response.body) as Map<String, dynamic>;
       return LoginResponse.fromJson(responseData, response.statusCode);
-      
     } catch (e) {
       return LoginResponse(
         success: false,
@@ -72,7 +74,7 @@ class LoginService {
       );
     }
   }
-  
+
   /// Perform custom login with custom URL and headers
   Future<LoginResponse> customLogin(
     LoginData loginData, {
@@ -81,18 +83,19 @@ class LoginService {
     Duration? timeout,
   }) async {
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers ?? {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': loginData.email,
-          'password': loginData.password,
-        }),
-      ).timeout(timeout ?? const Duration(seconds: 30));
-      
+      final response = await http
+          .post(
+            Uri.parse(url),
+            headers: headers ?? {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'email': loginData.email,
+              'password': loginData.password,
+            }),
+          )
+          .timeout(timeout ?? const Duration(seconds: 30));
+
       final responseData = jsonDecode(response.body) as Map<String, dynamic>;
       return LoginResponse.fromJson(responseData, response.statusCode);
-      
     } catch (e) {
       return LoginResponse(
         success: false,

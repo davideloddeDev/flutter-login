@@ -9,7 +9,7 @@ void main() {
     'X-App-Version': '1.0.0',
     'Authorization': 'Bearer demo-token',
   });
-  
+
   runApp(const MyApp());
 }
 
@@ -51,7 +51,7 @@ class _LoginDemoScreenState extends State<LoginDemoScreen> {
       if (_useHttpService) {
         // Usa il servizio HTTP integrato
         final response = await LoginService.instance.login(loginData);
-        
+
         setState(() {
           _isLoading = false;
           _lastLoginAttempt = '''
@@ -66,8 +66,8 @@ Message: ${response.message ?? 'No message'}
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(response.success 
-                  ? 'Login riuscito!' 
+              content: Text(response.success
+                  ? 'Login riuscito!'
                   : 'Login fallito: ${response.message}'),
               backgroundColor: response.success ? Colors.green : Colors.red,
             ),
@@ -100,7 +100,7 @@ Mode: Local simulation
         _isLoading = false;
         _lastLoginAttempt = 'Errore: $e';
       });
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -157,11 +157,11 @@ Mode: Local simulation
                     const Text('• Configurazione URL backend globale'),
                     const Text('• Servizio HTTP integrato'),
                     const SizedBox(height: 12),
-                    
+
                     // Toggle per servizio HTTP
                     SwitchListTile(
                       title: const Text('Usa servizio HTTP'),
-                      subtitle: Text(_useHttpService 
+                      subtitle: Text(_useHttpService
                           ? 'Chiamerà: ${LoginConfig.instance.loginUrl ?? "URL non configurato"}'
                           : 'Modalità simulazione locale'),
                       value: _useHttpService,
@@ -175,9 +175,9 @@ Mode: Local simulation
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Componente Login centrato
             Center(
               child: ConstrainedBox(
@@ -215,7 +215,8 @@ Mode: Local simulation
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Funzionalità "Password dimenticata" non implementata in questa demo'),
+                              content: Text(
+                                  'Funzionalità "Password dimenticata" non implementata in questa demo'),
                             ),
                           );
                         },
@@ -230,7 +231,8 @@ Mode: Local simulation
                             onPressed: () {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Funzionalità "Registrazione" non implementata in questa demo'),
+                                  content: Text(
+                                      'Funzionalità "Registrazione" non implementata in questa demo'),
                                 ),
                               );
                             },
@@ -243,9 +245,9 @@ Mode: Local simulation
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Sezione risultati
             if (_lastLoginAttempt.isNotEmpty) ...[
               Card(
@@ -274,9 +276,9 @@ Mode: Local simulation
                 ),
               ),
             ],
-            
+
             const SizedBox(height: 24),
-            
+
             // Credenziali di test
             Card(
               color: Colors.blue[50],

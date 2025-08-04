@@ -5,19 +5,19 @@ import 'models/login_data.dart';
 class LoginForm extends StatefulWidget {
   /// Callback function called when login is attempted
   final Function(LoginData) onLogin;
-  
+
   /// Custom styling for the form
   final InputDecoration? emailDecoration;
   final InputDecoration? passwordDecoration;
-  
+
   /// Button styling
   final ButtonStyle? buttonStyle;
   final String? buttonText;
-  
+
   /// Form validation
   final String? Function(String?)? emailValidator;
   final String? Function(String?)? passwordValidator;
-  
+
   /// Password visibility options
   final bool showPasswordToggle;
   final Widget? visibilityIcon;
@@ -35,7 +35,8 @@ class LoginForm extends StatefulWidget {
     this.showPasswordToggle = true,
     this.visibilityIcon,
     this.visibilityOffIcon,
-  }) : super(key: key);  @override
+  }) : super(key: key);
+  @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
@@ -92,8 +93,7 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
-            decoration:
-                widget.emailDecoration ??
+            decoration: widget.emailDecoration ??
                 const InputDecoration(
                   labelText: 'Email',
                   hintText: 'Enter your email',
@@ -106,35 +106,41 @@ class _LoginFormState extends State<LoginForm> {
             controller: _passwordController,
             obscureText: _obscurePassword,
             decoration: widget.passwordDecoration?.copyWith(
-              suffixIcon: widget.showPasswordToggle
-                  ? IconButton(
-                      icon: widget.visibilityIcon != null || widget.visibilityOffIcon != null
-                          ? (_obscurePassword 
-                              ? (widget.visibilityIcon ?? const Icon(Icons.visibility))
-                              : (widget.visibilityOffIcon ?? const Icon(Icons.visibility_off)))
-                          : Icon(
-                              _obscurePassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    )
-                  : widget.passwordDecoration?.suffixIcon,
-            ) ??
+                  suffixIcon: widget.showPasswordToggle
+                      ? IconButton(
+                          icon: widget.visibilityIcon != null ||
+                                  widget.visibilityOffIcon != null
+                              ? (_obscurePassword
+                                  ? (widget.visibilityIcon ??
+                                      const Icon(Icons.visibility))
+                                  : (widget.visibilityOffIcon ??
+                                      const Icon(Icons.visibility_off)))
+                              : Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        )
+                      : widget.passwordDecoration?.suffixIcon,
+                ) ??
                 InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter your password',
                   prefixIcon: const Icon(Icons.lock),
                   suffixIcon: widget.showPasswordToggle
                       ? IconButton(
-                          icon: widget.visibilityIcon != null || widget.visibilityOffIcon != null
-                              ? (_obscurePassword 
-                                  ? (widget.visibilityIcon ?? const Icon(Icons.visibility))
-                                  : (widget.visibilityOffIcon ?? const Icon(Icons.visibility_off)))
+                          icon: widget.visibilityIcon != null ||
+                                  widget.visibilityOffIcon != null
+                              ? (_obscurePassword
+                                  ? (widget.visibilityIcon ??
+                                      const Icon(Icons.visibility))
+                                  : (widget.visibilityOffIcon ??
+                                      const Icon(Icons.visibility_off)))
                               : Icon(
                                   _obscurePassword
                                       ? Icons.visibility
