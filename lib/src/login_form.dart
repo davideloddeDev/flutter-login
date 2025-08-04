@@ -17,6 +17,11 @@ class LoginForm extends StatefulWidget {
   /// Form validation
   final String? Function(String?)? emailValidator;
   final String? Function(String?)? passwordValidator;
+  
+  /// Password visibility options
+  final bool showPasswordToggle;
+  final Widget? visibilityIcon;
+  final Widget? visibilityOffIcon;
 
   const LoginForm({
     Key? key,
@@ -27,9 +32,10 @@ class LoginForm extends StatefulWidget {
     this.buttonText,
     this.emailValidator,
     this.passwordValidator,
-  }) : super(key: key);
-
-  @override
+    this.showPasswordToggle = true,
+    this.visibilityIcon,
+    this.visibilityOffIcon,
+  }) : super(key: key);  @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
@@ -86,7 +92,8 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
-            decoration: widget.emailDecoration ??
+            decoration:
+                widget.emailDecoration ??
                 const InputDecoration(
                   labelText: 'Email',
                   hintText: 'Enter your email',
@@ -98,21 +105,48 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _passwordController,
             obscureText: _obscurePassword,
-            decoration: widget.passwordDecoration ??
+            decoration: widget.passwordDecoration?.copyWith(
+              suffixIcon: widget.showPasswordToggle
+                  ? IconButton(
+                      icon: widget.visibilityIcon != null || widget.visibilityOffIcon != null
+                          ? (_obscurePassword 
+                              ? (widget.visibilityIcon ?? const Icon(Icons.visibility))
+                              : (widget.visibilityOffIcon ?? const Icon(Icons.visibility_off)))
+                          : Icon(
+                              _obscurePassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    )
+                  : widget.passwordDecoration?.suffixIcon,
+            ) ??
                 InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter your password',
                   prefixIcon: const Icon(Icons.lock),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                  ),
+                  suffixIcon: widget.showPasswordToggle
+                      ? IconButton(
+                          icon: widget.visibilityIcon != null || widget.visibilityOffIcon != null
+                              ? (_obscurePassword 
+                                  ? (widget.visibilityIcon ?? const Icon(Icons.visibility))
+                                  : (widget.visibilityOffIcon ?? const Icon(Icons.visibility_off)))
+                              : Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        )
+                      : null,
                 ),
             validator: widget.passwordValidator ?? _defaultPasswordValidator,
           ),

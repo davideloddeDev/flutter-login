@@ -29,6 +29,11 @@ class LoginWidget extends StatelessWidget {
   /// Form validation
   final String? Function(String?)? emailValidator;
   final String? Function(String?)? passwordValidator;
+  
+  /// Password visibility options
+  final bool showPasswordToggle;
+  final Widget? visibilityIcon;
+  final Widget? visibilityOffIcon;
 
   const LoginWidget({
     Key? key,
@@ -46,24 +51,28 @@ class LoginWidget extends StatelessWidget {
     this.footer,
     this.emailValidator,
     this.passwordValidator,
-  }) : super(key: key);
-
-  @override
+    this.showPasswordToggle = true,
+    this.visibilityIcon,
+    this.visibilityOffIcon,
+  }) : super(key: key);  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       padding: padding ?? const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         color: backgroundColor ?? theme.cardColor,
         borderRadius: borderRadius ?? BorderRadius.circular(12.0),
-        boxShadow: shadow != null ? [shadow!] : [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        boxShadow:
+            shadow != null
+                ? [shadow!]
+                : [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -72,9 +81,11 @@ class LoginWidget extends StatelessWidget {
           if (title != null) ...[
             Text(
               title!,
-              style: titleStyle ?? theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style:
+                  titleStyle ??
+                  theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
@@ -87,11 +98,11 @@ class LoginWidget extends StatelessWidget {
             buttonText: buttonText,
             emailValidator: emailValidator,
             passwordValidator: passwordValidator,
+            showPasswordToggle: showPasswordToggle,
+            visibilityIcon: visibilityIcon,
+            visibilityOffIcon: visibilityOffIcon,
           ),
-          if (footer != null) ...[
-            const SizedBox(height: 16),
-            footer!,
-          ],
+          if (footer != null) ...[const SizedBox(height: 16), footer!],
         ],
       ),
     );

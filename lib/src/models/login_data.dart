@@ -3,16 +3,10 @@ class LoginData {
   final String email;
   final String password;
 
-  const LoginData({
-    required this.email,
-    required this.password,
-  });
+  const LoginData({required this.email, required this.password});
 
   /// Creates a copy of this LoginData with the given fields replaced
-  LoginData copyWith({
-    String? email,
-    String? password,
-  }) {
+  LoginData copyWith({String? email, String? password}) {
     return LoginData(
       email: email ?? this.email,
       password: password ?? this.password,

@@ -19,9 +19,7 @@ void main() {
         password: 'password123',
       );
 
-      final updatedData = originalData.copyWith(
-        email: 'new@example.com',
-      );
+      final updatedData = originalData.copyWith(email: 'new@example.com');
 
       expect(updatedData.email, 'new@example.com');
       expect(updatedData.password, 'password123');
